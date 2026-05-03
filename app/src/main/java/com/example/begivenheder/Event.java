@@ -12,6 +12,7 @@ public class Event implements Serializable {
     private String shortDescription;
     private String fullDescription;
     private String link;
+    private String imageUri;
     private boolean isRegistered;
 
     public Event(String name, String date, String shortDescription, String fullDescription, String link) {
@@ -21,6 +22,7 @@ public class Event implements Serializable {
         this.fullDescription = fullDescription;
         this.link = link;
         this.isRegistered = false;
+        this.imageUri = null;
     }
 
     public String getName() {
@@ -29,6 +31,14 @@ public class Event implements Serializable {
 
     public String getDate() {
         return date;
+    }
+
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 
     /**

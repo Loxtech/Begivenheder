@@ -5,13 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -19,8 +25,29 @@ import java.util.Locale;
 public class AddScreen extends AppCompatActivity {
 
     private EditText etName, etDate, etShortDesc, etFullDesc, etLink;
-    private Button btnSave, btnCancel;
+    private Button btnSave, btnCancel, btnSelectImage;
+    private ImageView ivEventPreview;
     private com.google.android.material.textfield.TextInputLayout tilDate;
+    private String selectedImageUri = null;
+
+    /**
+     * Launcher til billedvælger (Photo Picker).
+     * Håndterer valg af billede, tildeling af permanente rettigheder og opdatering af preview.
+     */
+    private final ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                if (uri != null) {
+                    selectedImageUri = uri.toString();
+                    
+                    // Vigtigt: Tag permanent læse-adgang til URI'en. 
+                    // Uden dette vil appen miste adgangen til billedet efter en genstart.
+                    getContentResolver().takePersistableUriPermission(uri, 
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    
+                    // Brug Glide til effektivt at indlæse preview-billedet
+                    Glide.with(this).load(uri).into(ivEventPreview);
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +72,8 @@ public class AddScreen extends AppCompatActivity {
         etLink = findViewById(R.id.etLink);
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
+        btnSelectImage = findViewById(R.id.btnSelectImage);
+        ivEventPreview = findViewById(R.id.ivEventPreview);
         tilDate = findViewById(R.id.tilDate);
 
         // Sæt dags dato som standard
@@ -66,6 +95,11 @@ public class AddScreen extends AppCompatActivity {
         btnSave.setOnClickListener(v -> saveEvent());
 
         btnCancel.setOnClickListener(v -> finish());
+
+        // Billedvælger klik
+        btnSelectImage.setOnClickListener(v -> pickMedia.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build()));
     }
 
     /**
@@ -108,6 +142,9 @@ public class AddScreen extends AppCompatActivity {
         }
 
         Event newEvent = new Event(name, date, shortDesc, fullDesc, link);
+        if (selectedImageUri != null) {
+            newEvent.setImageUri(selectedImageUri);
+        }
         
         Intent resultIntent = new Intent();
         resultIntent.putExtra("newEvent", newEvent);
@@ -115,3 +152,24 @@ public class AddScreen extends AppCompatActivity {
         finish();
     }
 }
+
+/*
+  1. Vigtig logik: Permanente rettigheder
+  getContentResolver().takePersistableUriPermission(...)
+  Uden denne vil appen "glemme" billedet, næste gang telefonen genstarter eller appen lukkes helt
+  ned, selvom stien (URI'en) stadig er gemt i SharedPreferences.
+
+  2. Glide
+  Glide er et af de mest populære biblioteker til Android til at vise billeder.
+  Den bruges i AddScreen, DetailsScreen og EventAdapter.
+  Hvorfor Glide?
+  • Hukommelse: Store billeder fra kameraet kan nemt få en app til at crashe (Out Of Memory).
+  Glide skalerer automatisk billedet ned, så det kun bruger den nødvendige hukommelse til den
+  størrelse, det vises i.
+  • Caching: Glide gemmer en kopi af billedet internt, så det ikke skal hentes eller bearbejdes
+  forfra hver gang man scroller forbi det.
+  • Placeholder & Error: Det giver os nemme metoder til at vise et standardbillede, mens vi venter,
+  eller hvis billedet er blevet slettet fra telefonen.
+  • Trådhåndtering: Glide sørger for, at tunge billedopgaver kører i baggrunden, så din app altid
+  føles hurtig og flydende (ingen lag).
+ */

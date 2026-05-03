@@ -22,7 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class StartScreen extends AppCompatActivity {
@@ -116,18 +116,30 @@ public class StartScreen extends AppCompatActivity {
      */
     private void initializeData() {
         allEvents = loadEvents();
-        
+
         if (allEvents == null || allEvents.isEmpty()) {
             allEvents = new ArrayList<>();
-            allEvents.add(new Event("Sommerfest", "15. Juni 2026", "Årets hyggeligste sommerfest.",
+
+            // 1. Opret event
+            Event sommerfest = new Event("Sommerfest", "15. Juni 2026", "Årets hyggeligste sommerfest.",
                     "Kom og vær med til en fantastisk dag med grill, musik og gode venner.",
-                    "https://Google.com"));
-            allEvents.add(new Event("IT Konference", "22. September 2026", "Lær om de nyeste teknologier.",
+                    "https://Google.com");
+            // 2. Tilføj billede fra drawable (erstat 'dit_billede_navn' med navnet på din fil)
+            sommerfest.setImageUri("android.resource://" + getPackageName() + "/" + R.drawable.summerparty);
+            allEvents.add(sommerfest);
+
+            Event itKonference = new Event("IT Konference", "22. September 2026", "Lær om de nyeste teknologier.",
                     "En dag spækket med spændende oplæg fra eksperter inden for AI og Cloud.",
-                    "https://Google.com"));
-            allEvents.add(new Event("Julefrokost", "1. December 2026", "Traditionel julefrokost.",
+                    "https://Google.com");
+            itKonference.setImageUri("android.resource://" + getPackageName() + "/" + R.drawable.itconfrence);
+            allEvents.add(itKonference);
+
+            Event julefrokost = new Event("Julefrokost", "1. December 2026", "Traditionel julefrokost.",
                     "Vi fejrer julen med sild, snaps og masser af hygge.",
-                    "https://Google.com"));
+                    "https://Google.com");
+            julefrokost.setImageUri("android.resource://" + getPackageName() + "/" + R.drawable.julefrokost);
+            allEvents.add(julefrokost);
+
             saveEvents();
         }
     }
@@ -145,7 +157,7 @@ public class StartScreen extends AppCompatActivity {
     }
 
     /**
-     * Indlæser og deserialiserer listen af begivenheder fra SharedPreferences.
+     * Indlæser og deserializes listen af begivenheder fra SharedPreferences.
      */
     private List<Event> loadEvents() {
         android.content.SharedPreferences sharedPreferences = getSharedPreferences("BegivenhederPrefs", MODE_PRIVATE);
@@ -158,7 +170,7 @@ public class StartScreen extends AppCompatActivity {
     /**
      * Filtrerer listen af begivenheder baseret på brugerens søgeord.
      */
-    private void filterEvents(String query) {
+    public void filterEvents(String query) {
         displayedEvents.clear();
         if (query.isEmpty()) {
             displayedEvents.addAll(allEvents);
@@ -176,6 +188,10 @@ public class StartScreen extends AppCompatActivity {
      * Sorterer listen kronologisk baseret på dato-objektet i hver Event.
      */
     private void sortEvents() {
-        Collections.sort(allEvents, (e1, e2) -> e1.getDateAsObject().compareTo(e2.getDateAsObject()));
+        allEvents.sort(Comparator.comparing(Event::getDateAsObject));
+    }
+
+    public List<Event> getAllEvents() {
+        return allEvents;
     }
 }

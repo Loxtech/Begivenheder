@@ -12,65 +12,103 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvEventName"
+        <ImageView
+            android:id="@+id/ivEventItemImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Event Name"
-            android:textColor="@color/text_primary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvEventDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Date"
-            android:textColor="@color/primary"
-            android:textSize="14sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/tvEventShortDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="Short Description"
-            android:textColor="@color/text_secondary"
-            android:textSize="16sp" />
+            android:layout_height="140dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <Button
-                android:id="@+id/btnDetails"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:text="Detaljer"
-                android:textAllCaps="false" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnRegister"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvEventName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Event Name"
+                        android:textColor="@color/text_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvEventDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Date"
+                        android:textColor="@color/primary"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Slet begivenhed"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/trash"
+                    app:tint="@color/text_secondary" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvEventShortDescription"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Tilmeld"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/accent" />
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Short Description"
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnDetails"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="Detaljer"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tilmeld"
+                    android:textAllCaps="false"
+                    android:backgroundTint="@color/accent" />
+            </LinearLayout>
+
         </LinearLayout>
-
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
