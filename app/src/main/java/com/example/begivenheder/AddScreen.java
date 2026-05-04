@@ -137,7 +137,7 @@ public class AddScreen extends AppCompatActivity {
         String link = etLink.getText().toString().trim();
 
         if (name.isEmpty() || date.isEmpty() || shortDesc.isEmpty() || fullDesc.isEmpty()) {
-            Toast.makeText(this, "Udfyld venligst alle felter (undtagen link)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Udfyld venligst alle felter (undtagen link og Billede)", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -160,16 +160,12 @@ public class AddScreen extends AppCompatActivity {
   ned, selvom stien (URI'en) stadig er gemt i SharedPreferences.
 
   2. Glide
-  Glide er et af de mest populære biblioteker til Android til at vise billeder.
+  Glide er et bibliotek til at vise billeder.
   Den bruges i AddScreen, DetailsScreen og EventAdapter.
   Hvorfor Glide?
-  • Hukommelse: Store billeder fra kameraet kan nemt få en app til at crashe (Out Of Memory).
+  • Hukommelse: Store billeder fra kameraet kan nemt få en app til at crashe.
   Glide skalerer automatisk billedet ned, så det kun bruger den nødvendige hukommelse til den
   størrelse, det vises i.
   • Caching: Glide gemmer en kopi af billedet internt, så det ikke skal hentes eller bearbejdes
   forfra hver gang man scroller forbi det.
-  • Placeholder & Error: Det giver os nemme metoder til at vise et standardbillede, mens vi venter,
-  eller hvis billedet er blevet slettet fra telefonen.
-  • Trådhåndtering: Glide sørger for, at tunge billedopgaver kører i baggrunden, så din app altid
-  føles hurtig og flydende (ingen lag).
  */

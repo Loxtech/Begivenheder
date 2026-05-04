@@ -119,13 +119,10 @@ public class StartScreen extends AppCompatActivity {
 
         if (allEvents == null || allEvents.isEmpty()) {
             allEvents = new ArrayList<>();
-
-            // 1. Opret event
-            Event sommerfest = new Event("Sommerfest", "15. Juni 2026", "Årets hyggeligste sommerfest.",
-                    "Kom og vær med til en fantastisk dag med grill, musik og gode venner.",
+            Event sommerfest = new Event("Pool Party", "15. Juni 2026", "Årets hyggeligste Pool party.",
+                    "Kom og vær med til en fantastisk dag med pool, grill, og musik.",
                     "https://Google.com");
-            // 2. Tilføj billede fra drawable (erstat 'dit_billede_navn' med navnet på din fil)
-            sommerfest.setImageUri("android.resource://" + getPackageName() + "/" + R.drawable.summerparty);
+            sommerfest.setImageUri("android.resource://" + getPackageName() + "/" + R.drawable.poolparty);
             allEvents.add(sommerfest);
 
             Event itKonference = new Event("IT Konference", "22. September 2026", "Lær om de nyeste teknologier.",
