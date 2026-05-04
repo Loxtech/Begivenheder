@@ -104,7 +104,6 @@ public class StartScreen extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        // Knappen kan stadig bruges til at lukke tastaturet eller tvinge en søgning
         btnSearch.setOnClickListener(v -> {
             String query = etSearch.getText().toString().toLowerCase();
             filterEvents(query);
@@ -182,7 +181,7 @@ public class StartScreen extends AppCompatActivity {
     }
 
     /**
-     * Sorterer listen kronologisk baseret på dato-objektet i hver Event.
+     * Sorterer listen kronologisk baseret på dato i hver Event.
      */
     private void sortEvents() {
         allEvents.sort(Comparator.comparing(Event::getDateAsObject));

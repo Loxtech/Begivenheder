@@ -73,7 +73,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         });
 
         // Håndter billede i listen med Glide
-        // Vi bruger centerCrop for at sikre at billedet fylder containeren pænt
+        // CenterCrop for at sikre at billedet fylder containeren pænt
         if (event.getImageUri() != null) {
             ivEventImage.setVisibility(View.VISIBLE);
             Glide.with(context)

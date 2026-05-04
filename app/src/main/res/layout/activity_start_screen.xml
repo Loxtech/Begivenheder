@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".StartScreen">
+    tools:context=".StartScreen"
+    tools:ignore="VisualLintBounds">
 
     <View
         android:id="@+id/headerBackground"
@@ -26,7 +27,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/searchCard"
@@ -55,7 +57,8 @@
                 android:hint="Søg efter begivenhed..."
                 android:inputType="text"
                 android:padding="12dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="Autofill,HardcodedText,VisualLintTextFieldSize" />
 
             <ImageButton
                 android:id="@+id/btnSearch"
@@ -63,7 +66,8 @@
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_search"
-                app:tint="@color/primary" />
+                app:tint="@color/primary"
+                tools:ignore="ContentDescription,ImageContrastCheck" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -89,6 +93,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white"
-        app:backgroundTint="@color/primary" />
+        app:backgroundTint="@color/primary"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,7 +31,7 @@ public class AddScreen extends AppCompatActivity {
     private String selectedImageUri = null;
 
     /**
-     * Launcher til billedvælger (Photo Picker).
+     * Launcher til billedvælger.
      * Håndterer valg af billede, tildeling af permanente rettigheder og opdatering af preview.
      */
     private final ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
@@ -44,7 +44,7 @@ public class AddScreen extends AppCompatActivity {
                     getContentResolver().takePersistableUriPermission(uri, 
                             Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     
-                    // Brug Glide til effektivt at indlæse preview-billedet
+                    // Brug Glide til at indlæse preview-billedet
                     Glide.with(this).load(uri).into(ivEventPreview);
                 }
             });
