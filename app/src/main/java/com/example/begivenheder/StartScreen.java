@@ -119,11 +119,11 @@ public class StartScreen extends AppCompatActivity {
 
         if (allEvents == null || allEvents.isEmpty()) {
             allEvents = new ArrayList<>();
-            Event sommerfest = new Event("Pool Party", "15. Juni 2026", "Årets hyggeligste Pool party.",
+            Event poolParty = new Event("Pool Party", "15. Juni 2026", "Årets hyggeligste Pool party.",
                     "Kom og vær med til en fantastisk dag med pool, grill, og musik.",
                     "https://Google.com");
-            sommerfest.setImageUri("android.resource://" + getPackageName() + "/" + R.drawable.poolparty);
-            allEvents.add(sommerfest);
+            poolParty.setImageUri("android.resource://" + getPackageName() + "/" + R.drawable.poolparty);
+            allEvents.add(poolParty);
 
             Event itKonference = new Event("IT Konference", "22. September 2026", "Lær om de nyeste teknologier.",
                     "En dag spækket med spændende oplæg fra eksperter inden for AI og Cloud.",
